@@ -7,7 +7,6 @@ function laplacian() {
 
     return {
         run: function(image) {
-            console.log('Laplacian');
             image.convolute(kernel);
             return image;
         }
