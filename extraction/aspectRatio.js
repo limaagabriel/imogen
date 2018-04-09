@@ -1,7 +1,7 @@
 function aspectRatio() {
     return {
         name: 'aspectRatio',
-        run: function(image) {
+        run: function(image, features) {
             const pixelsOfInterest = [];
             const data = image.bitmap.data;
             const width = image.bitmap.width;
