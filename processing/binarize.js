@@ -1,8 +1,8 @@
 function laplacian(limit) {
-    const min = 0;
-    const max = 255;
+    const min = 0x00000000;
+    const max = 0xFFFFFFFF;
 
-    limit = limit? limit : 127;
+    limit = limit? limit : 0x7F7F7FFF;
 
     return {
         run: function(image) {
@@ -11,13 +11,12 @@ function laplacian(limit) {
 
             for(let j = 0; j < height; j++) {
                 for(let i = 0; i < width; i++) {
-                    const idx = image.getPixelIndex(i, j);
+                    const px = image.getPixelColor(i, j);
 
-                    if(image.bitmap.data[idx] < limit)
-                        image.bitmap.data[idx] = min;
-                    else {
-                        image.bitmap.data[idx] = max;
-                    }
+                    if(px < limit)
+                        image.setPixelColor(min, i, j);
+                    else
+                        image.setPixelColor(max, i, j);
                 }
             }
 

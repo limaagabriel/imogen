@@ -1,5 +1,5 @@
 function ProcessingPipe(image) {
-    this.image = image;
+    this.image = image.clone();
 }
 
 ProcessingPipe.prototype.apply = function(algorithm) {

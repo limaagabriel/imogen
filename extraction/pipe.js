@@ -1,5 +1,5 @@
 function FeatureExtractionPipe(image, defaultFeatures) {
-    this.image = image;
+    this.image = image.clone();
     this.features = Object.assign({}, defaultFeatures);
 }
 
