@@ -3,7 +3,9 @@ const path = require('path');
 const laplacian = require('./processing/laplacian');
 const binarize = require('./processing/binarize');
 const ProcessingPipe = require('./processing/pipe');
+const pointSet = require('./extraction/pointSet');
 const aspectRatio = require('./extraction/aspectRatio');
+const contourGravityCenter = require('./extraction/contourGravityCenter');
 const FeatureExtractionPipe = require('./extraction/pipe');
 
 const imageName = 'image4.bmp';
@@ -16,8 +18,10 @@ const main = image => {
                                   .apply(binarize())
                                   .collect();
 
-    const extractionPipe = new FeatureExtractionPipe(contour);
-    const features = extractionPipe.apply(aspectRatio()).collect();
+    const extractionPipe = new FeatureExtractionPipe(contour, {});
+    const features = extractionPipe.apply(pointSet())
+                                   .apply(contourGravityCenter())
+                                   .collect();
     console.log(features);
 
     contour.write(resultPath, () => {

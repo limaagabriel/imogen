@@ -17,10 +17,7 @@ function laplacian(limit) {
                         image.bitmap.data[idx] = min;
                     else {
                         image.bitmap.data[idx] = max;
-                        console.log('max!');
-                        console.log(min, max, image.bitmap.data[idx]);
                     }
-
                 }
             }
 
