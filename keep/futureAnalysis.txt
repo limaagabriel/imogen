@@ -1,7 +1,6 @@
-function contourGravityCenter() {
-    return {
-        name: 'contourGravityCenter',
-        run: function(image, features) {
+        
+        contour mass center
+        old: function(image, features) {
             let a = 0;
             const center = {x: 0, y: 0};
             const pointSet = features.pointSet;
@@ -26,9 +25,8 @@ function contourGravityCenter() {
             center.x = center.x / (6.0 * a);
             center.y = center.y / (6.0 * a);
 
+            image.setPixelColor(0xFFFFFFFF, center.x, center.y);
+            image.write('out/center.bmp');
+
             return center;
         }
-    }
-}
-
-module.exports = contourGravityCenter;

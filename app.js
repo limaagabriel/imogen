@@ -5,8 +5,11 @@ const binarize = require('./processing/binarize');
 const ProcessingPipe = require('./processing/pipe');
 const pointSet = require('./extraction/pointSet');
 const hu = require('./extraction/hu');
+const grahamConvexHull = require('./extraction/grahamConvexHull');
+const convexHullContour = require('./extraction/convexHullContour');
 const aspectRatio = require('./extraction/aspectRatio');
-const contourGravityCenter = require('./extraction/contourGravityCenter');
+const contourArea = require('./extraction/contourArea');
+const contourMassCenter = require('./extraction/contourMassCenter');
 const FeatureExtractionPipe = require('./extraction/pipe');
 
 const imageName = 'leaf_1.bmp';
@@ -25,18 +28,18 @@ const main = image => {
 
     const contourExtractionPipe = new FeatureExtractionPipe(contour, {});
     const contourFeatures = contourExtractionPipe.apply(pointSet())
-                                                 .apply(contourGravityCenter())
+                                                 .apply(grahamConvexHull())
+                                                 .apply(convexHullContour('grahamConvexHull'))
+                                                 .apply(contourMassCenter())
+                                                 .apply(contourArea())
                                                  .collect();
     
     const regionExtractionPipe = new FeatureExtractionPipe(region, {});
     const regionFeatures = regionExtractionPipe.apply(hu())
                                                .collect();
 
-    console.log(regionFeatures);                                               
-
-    region.write(resultPath, () => {
-        console.log(resultPath + ' ready');
-    });
+    console.log(contourFeatures);
+    contour.write(resultPath);
 };
 
 const readError = console.log;
