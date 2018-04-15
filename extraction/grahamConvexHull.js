@@ -1,8 +1,4 @@
-// To find orientation of ordered triplet (p, q, r).
-// The function returns following values
-// 0 --> p, q and r are colinear
-// 1 --> Clockwise
-// 2 --> Counterclockwise
+const space = require('../util/space');
 
 const Orientation = {
     LEFT: 2,
@@ -30,15 +26,9 @@ function sort(list, p) {
         else return Math.atan2(co, ca) * conv;
     };
 
-    const squareDistance = (p, q) => {
-        const dx = Math.pow(p.x - q.x, 2);
-        const dy = Math.pow(p.y - q.y, 2);
-        return dx + dy;
-    }
-
     const mapped = list.map((element, i) => {
         const angle = polar(element.point, p.point);
-        const distance = squareDistance(element.point, p.point);
+        const distance = space.squareDistance(element.point, p.point);
         return {index: i, angle: angle, distance: distance};
     });
 
