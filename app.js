@@ -11,9 +11,12 @@ const convexity = require('./extraction/convexity');
 const aspectRatio = require('./extraction/aspectRatio');
 const contourArea = require('./extraction/contourArea');
 const subtractFrom = require('./processing/subtractFrom');
+const minBoundingBox = require('./extraction/minBoundingBox');
 const grahamConvexHull = require('./extraction/grahamConvexHull');
 const convexHullContour = require('./extraction/convexHullContour');
 const contourMassCenter = require('./extraction/contourMassCenter');
+const complexCoordinates = require('./extraction/complexCoordinates');
+const fourierDescriptors = require('./extraction/fourierDescriptors');
 const centerDistanceSignature = require('./extraction/centerDistanceSignature');
 
 const ProcessingPipe = require('./processing/pipe');
@@ -37,20 +40,25 @@ const main = image => {
 
     const contourExtractionPipe = new FeatureExtractionPipe(contour, {});
     const contourFeatures = contourExtractionPipe.apply(pointSet())
-                                                 .apply(grahamConvexHull())
-                                                 .apply(convexHullContour())
-                                                 .apply(convexity())
                                                  .apply(contourMassCenter())
                                                  .apply(contourArea())
                                                  .apply(centerDistanceSignature())
+                                                 .apply(complexCoordinates())
+                                                 .apply(fourierDescriptors())
                                                  .collect();
 
     const regionExtractionPipe = new FeatureExtractionPipe(region, {});
     const regionFeatures = regionExtractionPipe.apply(hu())
+                                               .apply(pointSet())
+                                               .apply(grahamConvexHull())
+                                               .apply(convexHullContour())
+                                               .apply(convexity())
+                                               .apply(minBoundingBox())
+                                               .apply(aspectRatio())
                                                .collect();
 
     console.log(contourFeatures);
-    contour.write(resultPath, () => console.log(resultPath, 'ready!'));
+    region.write(resultPath, () => console.log(resultPath, 'ready!'));
 };
 
 const readError = console.log;

@@ -5,7 +5,9 @@ function FeatureExtractionPipe(image, defaultFeatures) {
 
 FeatureExtractionPipe.prototype.apply = function(algorithm) {
     if(algorithm.run && algorithm.name) {
+        console.log('[ExtractionPipe] Running', algorithm.name);
         this.features[algorithm.name] = algorithm.run(this.image, this.features);
+        console.log('[ExtractionPipe] Done', algorithm.name);
     }
 
     return this;

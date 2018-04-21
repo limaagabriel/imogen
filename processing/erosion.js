@@ -7,6 +7,7 @@ function erosion() {
     ];
 
     return {
+        name: 'erosion',
         run: function(image) {
             const newImage = image.clone();
             const yt = Math.floor(kernel.length / 2);

@@ -24,4 +24,19 @@ space.perimeter = function(curve) {
     return perimeter;
 }
 
+space.rotate = function(points, angle) {
+    const output = [];
+
+    for(const point of points) {
+        const p = {
+            x: point.x * Math.cos(angle) - point.y * Math.sin(angle),
+            y: point.x * Math.sin(angle) + point.y * Math.cos(angle)
+        };
+
+        output.push(p);
+    }
+    
+    return output;
+}
+
 module.exports = space;

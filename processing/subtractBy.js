@@ -1,5 +1,6 @@
 function subtractBy(imageToUse) {
     return {
+        name: 'subtractBy',
         run: function(image) {
             const normalizeAlpha = (p) => {
                 const sp = p.toString(16);

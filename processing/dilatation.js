@@ -7,6 +7,7 @@ function dilatation() {
     ];
 
     return {
+        name: 'dilatation',
         run: function(image) {
             const newImage = image.clone();
             const yt = Math.floor(kernel.length / 2);

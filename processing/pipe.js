@@ -3,7 +3,11 @@ function ProcessingPipe(image) {
 }
 
 ProcessingPipe.prototype.apply = function(algorithm) {
-    if(algorithm.run) this.image = algorithm.run(this.image);
+    if(algorithm.run && algorithm.name) {
+        console.log('[ProcessingPipe] Running', algorithm.name);
+        this.image = algorithm.run(this.image);
+        console.log('[ProcessingPipe] Done', algorithm.name);
+    }
     return this;
 }
 

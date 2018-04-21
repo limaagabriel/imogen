@@ -6,6 +6,7 @@ function laplacian() {
     ];
 
     return {
+        name: 'laplacian',
         run: function(image) {
             image.convolute(kernel);
             return image;

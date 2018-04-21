@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/itsmealves/imogen#readme",
   "dependencies": {
+    "fft-js": "0.0.11",
     "jimp": "^0.2.28"
   }
 }

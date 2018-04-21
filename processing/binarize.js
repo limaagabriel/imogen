@@ -8,6 +8,7 @@ function binarize(limit) {
     limit = limit? limit : (max + min) / 2;
 
     return {
+        name: 'binarize',
         run: function(image) {
             let t = limit;
             let dt = dtMin;

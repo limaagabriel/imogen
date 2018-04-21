@@ -1,5 +1,6 @@
 function subtractFrom(imageToUse) {
     return {
+        name: 'subtractFrom',
         run: function(image) {
             const imageFrom = imageToUse.clone();
             const normalizeAlpha = (p) => {
