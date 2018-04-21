@@ -14,6 +14,7 @@ const subtractFrom = require('./processing/subtractFrom');
 const grahamConvexHull = require('./extraction/grahamConvexHull');
 const convexHullContour = require('./extraction/convexHullContour');
 const contourMassCenter = require('./extraction/contourMassCenter');
+const centerDistanceSignature = require('./extraction/centerDistanceSignature');
 
 const ProcessingPipe = require('./processing/pipe');
 const FeatureExtractionPipe = require('./extraction/pipe');
@@ -41,6 +42,7 @@ const main = image => {
                                                  .apply(convexity())
                                                  .apply(contourMassCenter())
                                                  .apply(contourArea())
+                                                 .apply(centerDistanceSignature())
                                                  .collect();
 
     const regionExtractionPipe = new FeatureExtractionPipe(region, {});
