@@ -66,13 +66,10 @@ function fourierDescriptors() {
             const reconstructed = reconstruct(descriptors, descriptors.length, 128);
 
             for (const p of reconstructed) {
-                console.log(p);
                 image.setPixelColor(0xff00ffff, p[0], p[1]);
             }
 
-            image.write("out/fourier.bmp", () => {
-                process.exit(0);
-            });
+            image.write("out/fourier.bmp");
 
             return descriptors;
         }
