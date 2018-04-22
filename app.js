@@ -22,7 +22,7 @@ const centerDistanceSignature = require('./extraction/centerDistanceSignature');
 const ProcessingPipe = require('./processing/pipe');
 const FeatureExtractionPipe = require('./extraction/pipe');
 
-const imageName = 'image4.bmp';
+const imageName = 'rect.png';
 const resultPath = path.join('out', imageName);
 const imagePath = path.join('resources', imageName);
 

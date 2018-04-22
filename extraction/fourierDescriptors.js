@@ -14,7 +14,7 @@ function dft(data) {
             const imag = Math.sin(v);
             const exp = [real, imag];
 
-            x[0] += ck[0] * exp[0] + ck[1] * exp[1];
+            x[0] += ck[0] * exp[0] - ck[1] * exp[1];
             x[1] += ck[0] * exp[1] + ck[1] * exp[0];
         }
 
@@ -41,7 +41,7 @@ function reconstruct(data, points, approx) {
             const imag = Math.sin(v);
             const exp = [real, imag];
 
-            x[0] += ck[0] * exp[0] + ck[1] * exp[1];
+            x[0] += ck[0] * exp[0] - ck[1] * exp[1];
             x[1] += ck[0] * exp[1] + ck[1] * exp[0];
         }
 
@@ -63,7 +63,7 @@ function fourierDescriptors() {
             const complex = features.pointSet.map(p => [p.x, p.y]);
 
             const descriptors = dft(complex);
-            const reconstructed = reconstruct(descriptors, descriptors.length, 256);
+            const reconstructed = reconstruct(descriptors, descriptors.length, 128);
 
             for (const p of reconstructed) {
                 console.log(p);
