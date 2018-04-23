@@ -59,14 +59,14 @@ const main = image => {
                                                .apply(convexity())
                                                .collect();
 
-    fs.writeFile(path.join('out', 'regionFeatures.txt'), JSON.stringify(regionFeatures, null, '\t'), err => {
-        if(err) console.log('Error writing to regionFeatures.txt');
-        else console.log('regionFeatures.txt ready!');
+    fs.writeFile(path.join('out', 'regionFeatures.json'), JSON.stringify(regionFeatures, null, '\t'), err => {
+        if(err) console.log('Error writing to regionFeatures.json');
+        else console.log('regionFeatures.json ready!');
     });
 
-    fs.writeFile(path.join('out', 'contourFeatures.txt'), JSON.stringify(contourFeatures, null, '\t'), err => {
-        if(err) console.log('Error writing to contourFeatures.txt');
-        else console.log('contourFeatures.txt ready!');
+    fs.writeFile(path.join('out', 'contourFeatures.json'), JSON.stringify(contourFeatures, null, '\t'), err => {
+        if(err) console.log('Error writing to contourFeatures.json');
+        else console.log('contourFeatures.json ready!');
     });
 
     region.write(path.join('out', 'region' + imageName), () => {
