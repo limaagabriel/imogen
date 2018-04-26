@@ -13,6 +13,7 @@ const aspectRatio = require('./extraction/aspectRatio');
 const contourArea = require('./extraction/contourArea');
 const subtractFrom = require('./processing/subtractFrom');
 const minBoundingBox = require('./extraction/minBoundingBox');
+const removeAlphaFrom = require('./processing/removeAlphaFrom');
 const convexDeficiency = require('./extraction/convexDeficiency');
 const grahamConvexHull = require('./extraction/grahamConvexHull');
 const convexHullContour = require('./extraction/convexHullContour');
