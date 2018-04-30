@@ -7,10 +7,15 @@ const energy = require('./texture/energy');
 const entropy = require('./texture/entropy');
 const variance = require('./texture/variance');
 const contrast = require('./texture/contrast');
+const fineness = require('./texture/fineness');
+const strength = require('./texture/strength');
 const roughness = require('./texture/roughness');
 const histogram = require('./texture/histogram');
 const asymmetry = require('./texture/asymmetry');
 const standardDeviation = require('./texture/standardDeviation');
+const coOccurrenceMatrix = require('./texture/coOccurrenceMatrix');
+const energyByOccurrence = require('./texture/energyByOccurrence');
+const maximumOccurrenceProbability = require('./texture/maximumOccurrenceProbability');
 
 const TextureExtractionPipe = require('./texture/pipe');
 
@@ -32,16 +37,20 @@ images.forEach(fileOptions => {
     const main = image => {
         const grayscaleImage = image.grayscale();
         const pipe = new TextureExtractionPipe(grayscaleImage);
-        const textureFeatures = pipe.apply(histogram())
-                                    .apply(ngtdm())
+        const textureFeatures = pipe.apply(ngtdm())
+                                    .apply(histogram())
+                                    .apply(coOccurrenceMatrix())
                                     .apply(mean())
-                                    .apply(variance())
-                                    .apply(standardDeviation())
                                     .apply(energy())
                                     .apply(entropy())
-                                    .apply(asymmetry())
-                                    .apply(roughness())
+                                    .apply(variance())
                                     .apply(contrast())
+                                    .apply(fineness())
+                                    .apply(asymmetry())
+                                    .apply(strength(0.01))
+                                    .apply(roughness(0.01))
+                                    .apply(standardDeviation())
+                                    .apply(energyByOccurrence())
                                     .collect();
 
         const data = JSON.stringify(textureFeatures, null, '\t');
