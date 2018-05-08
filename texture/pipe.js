@@ -1,6 +1,8 @@
-function TextureExtractionPipe(image, defaultFeatures) {
+function TextureExtractionPipe(image, keepMatrices, defaultFeatures) {
     this.image = image.clone();
+    this.keepMatrices = keepMatrices;
     this.features = Object.assign({}, defaultFeatures);
+    this.matrices = ['ngtdm', 'histogram', 'coOccurrenceMatrix'];
 }
 
 TextureExtractionPipe.prototype.apply = function(algorithm) {
@@ -14,6 +16,13 @@ TextureExtractionPipe.prototype.apply = function(algorithm) {
 }
 
 TextureExtractionPipe.prototype.collect = function() {
+    if(!this.keepMatrices) {
+        const keys = Object.keys(this.features);
+        return keys.filter(k => !this.matrices.includes(k))
+                   .map(k => Object.assign({}, {[k]: this.features[k]}))
+                   .reduce((res, o) => Object.assign(res, o), {});
+    }
+
     return this.features;
 }
 

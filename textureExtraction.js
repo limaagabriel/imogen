@@ -19,7 +19,16 @@ const maximumOccurrenceProbability = require('./texture/maximumOccurrenceProbabi
 
 const TextureExtractionPipe = require('./texture/pipe');
 
+const keepMatrices = false;
 const images = [
+    {
+        name: 'sindiag',
+        extension: 'gif'
+    },
+    {
+        name: 'hardsin',
+        extension: 'jpg'
+    },
     {
         name: 'gray',
         extension: 'jpg'
@@ -36,7 +45,7 @@ images.forEach(fileOptions => {
 
     const main = image => {
         const grayscaleImage = image.grayscale();
-        const pipe = new TextureExtractionPipe(grayscaleImage);
+        const pipe = new TextureExtractionPipe(grayscaleImage, keepMatrices);
         const textureFeatures = pipe.apply(ngtdm())
                                     .apply(histogram())
                                     .apply(coOccurrenceMatrix())
@@ -51,6 +60,7 @@ images.forEach(fileOptions => {
                                     .apply(roughness(0.01))
                                     .apply(standardDeviation())
                                     .apply(energyByOccurrence())
+                                    .apply(maximumOccurrenceProbability())
                                     .collect();
 
         const data = JSON.stringify(textureFeatures, null, '\t');
@@ -68,17 +78,3 @@ images.forEach(fileOptions => {
         .then(main)
         .catch(error);
 });
-
-
-// const image = {
-//     bitmap: {
-//         width: 4,
-//         height: 4,
-//         data: [1, 2, 5, 2, 3, 5, 1, 3, 1, 3, 5, 5, 3, 1, 1, 1]
-//     },
-//     getPixelIndex: function(x, y) {
-//         return x + y * this.bitmap.width;
-//     }
-// }
-//
-// console.log(ngtdm().run(image, {}));

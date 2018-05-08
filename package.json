@@ -4,8 +4,10 @@
   "description": "Image processing/Computer Vision exercises",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "echo \"Choose one of the following scripts: npm run feature, npm run texture\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "feature": "node featureExtraction.js",
+    "texture": "node textureExtraction.js"
   },
   "repository": {
     "type": "git",
